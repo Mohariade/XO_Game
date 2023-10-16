@@ -8,14 +8,14 @@ using System.Data.SqlClient;
 
 namespace Data_Access_Layer
 {
-    public class clsDataAccess
+    public partial class clsDataAccess
     {
 
         public static bool Get_Game_List(ref DataTable table)
         {
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM Games";
+            string query = "SELECT * FROM GameInfo";
 
             SqlCommand command = new SqlCommand(query, connection);
 

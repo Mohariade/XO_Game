@@ -26,3 +26,21 @@ CREATE TABLE Games (
     Start_Time DATETIME,
     End_Time DATETIME
 );
+
+-- Create Full game information view
+
+Create View GameInfo as (
+
+select Games.*,
+Player1.Name as Player1_Name,
+Player2.Name as Player2_Name,
+Winner.Name  as Winner_Name,
+Status.Name  as Status
+FROM Games
+LEFT JOIN Players Player1      ON Games.Player1_ID = Player1.Player_ID
+LEFT JOIN Players Player2      ON Games.Player2_ID = Player2.Player_ID
+LEFT JOIN Players Winner       ON Games.Winner_ID  = Winner .Player_ID
+LEFT JOIN Game_Statuses Status ON Games.Status_ID  = Status .Status_ID
+);
+
+select * from GameInfo;

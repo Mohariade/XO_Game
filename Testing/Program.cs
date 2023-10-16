@@ -55,7 +55,20 @@ void Testing_Get_Games_List()
     {
         foreach(DataRow row in table.Rows) 
         {
-            Console.WriteLine($"Game ID : {row["Game_ID"]}");
+            Console.WriteLine($"Game ID : {row["Game_ID"]} | Game Status : {row["Status"]} | Winner Name : {row["Winner_Name"]}");
+        }
+    }
+}
+
+void Testing_Get_Players_List()
+{
+    DataTable table = new DataTable();
+
+    if (clsDataAccess.Get_Players_List(ref table))
+    {
+        foreach (DataRow row in table.Rows)
+        {
+            Console.WriteLine($"Player ID : {row["Player_ID"]}");
         }
     }
 }
@@ -64,6 +77,7 @@ int Main()
 {
 
     //TestingConnection();
+    //Testing_Get_Players_List();
     Testing_Get_Games_List();
     return 0;
 }
