@@ -1,0 +1,28 @@
+-- Create Players Table
+CREATE TABLE Players (
+    Player_ID INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(255) UNIQUE, -- Make player's name unique
+    -- Add other player-related attributes as needed
+);
+
+-- Create Game_Statuses Table
+CREATE TABLE Game_Statuses (
+    Status_ID INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(50) -- Add other status-related attributes as needed
+);
+
+-- Insert initial game statuses
+INSERT INTO Game_Statuses (Name) VALUES ('Ongoing');
+INSERT INTO Game_Statuses (Name) VALUES ('Won');
+INSERT INTO Game_Statuses (Name) VALUES ('Draw');
+
+-- Create Games Table
+CREATE TABLE Games (
+    Game_ID INT PRIMARY KEY IDENTITY(1,1),
+    Player1_ID INT FOREIGN KEY REFERENCES Players(Player_ID),
+    Player2_ID INT FOREIGN KEY REFERENCES Players(Player_ID),
+	Winner_ID INT FOREIGN KEY REFERENCES Players(Player_ID),
+    Status_ID INT FOREIGN KEY REFERENCES Game_Statuses(Status_ID),
+    Start_Time DATETIME,
+    End_Time DATETIME
+);
