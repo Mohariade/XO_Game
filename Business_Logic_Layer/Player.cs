@@ -8,5 +8,11 @@ namespace Business_Logic_Layer
 {
     public class clsPlayer
     {
+
+        static public clsPlayer Find(string Player_Name,string Password)
+        {
+            return null;
+        }
+
     }
 }
