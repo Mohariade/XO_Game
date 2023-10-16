@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Data_Access_Layer
 {
-    public class clsDataAccess
+    public partial class clsDataAccess
     {
+
     }
 }
