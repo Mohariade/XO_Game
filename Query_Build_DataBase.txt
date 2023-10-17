@@ -43,4 +43,6 @@ LEFT JOIN Players Winner       ON Games.Winner_ID  = Winner .Player_ID
 LEFT JOIN Game_Statuses Status ON Games.Status_ID  = Status .Status_ID
 );
 
-select * from GameInfo;
+-- Add Password column to the existing Players table
+ALTER TABLE Players
+ADD Password NVARCHAR(255);
