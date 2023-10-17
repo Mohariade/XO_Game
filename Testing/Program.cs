@@ -69,9 +69,11 @@ void Testing_Get_Players_List()
     {
         foreach (DataRow row in table.Rows)
         {
-            Console.WriteLine($"Player ID : {row["Player_ID"]} | {row["Password"]}");
+            Console.WriteLine($" {row["Player_ID"]}  |  {row["Name"]}  | {row["Password"]}");
         }
     }
+
+    Console.WriteLine("\n\n");
 }
 
 void Testing_Get_Player()
@@ -97,10 +99,55 @@ void Testing_clsPlayer_Find()
 
 }
 
+
+void Testing_clsPlayer_Create()
+{
+    clsPlayer? player = clsPlayer.Create("Mohamed", "Moha");
+
+    if(player == null)
+    {
+        Console.WriteLine("Filed to create player\n\n\n");
+        Testing_Get_Players_List();
+        return;
+    }
+
+    Console.WriteLine("Player Created Successfuly\n\n\n");
+    Testing_Get_Players_List();
+}
+
+void Testing_clsPerson_Update()
+{
+    clsPlayer? player = clsPlayer.Find("Houdaifa","H123");
+
+    if(player == null)
+    {
+        Console.WriteLine("Player Not found\n\n");
+        return;
+    }
+
+    Testing_Get_Players_List();
+
+    player.Password = "H0000";
+    player.Name = "HoudaifaBouamine";
+
+    if (player.Update())
+    {
+        Console.WriteLine("Updated Successfuly\n\n");
+    }
+    else
+    {
+        Console.WriteLine("Failed to update playerz\n\n");
+    }
+
+    Testing_Get_Players_List();
+}
+
 int Main()
 {
-
-    Testing_clsPlayer_Find();
+    Testing_clsPerson_Update();
+    //Testing_Get_Players_List();
+    //Testing_clsPlayer_Create();
+    //Testing_clsPlayer_Find();
     //Testing_Get_Player();
     //TestingConnection();
     //Testing_Get_Players_List();
