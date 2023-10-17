@@ -100,5 +100,46 @@ namespace Data_Access_Layer
 
         }
 
+
+        public static bool Add_New_Player(ref int ID,string Name,string Password)
+        {
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = "INSERT INTO Players (Name,Password) " +
+                "Values (@Name,@Password); " +
+                "SELECT Players.ID FROM Players WHERE Name = @Name";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Name", Name);
+            command.Parameters.AddWithValue("@Password", Password);
+
+            bool isAdded = true;
+
+            try
+            {
+                connection.Open();
+
+                object Result = command.ExecuteScalar();
+
+                if (Result == DBNull.Value)
+                {
+                    isAdded = false;
+                }
+                else
+                {
+                    ID = Convert.ToInt32(Result);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isAdded;
+        }
     }
 }
