@@ -73,6 +73,21 @@ a{
   text-decoration: none;
 }
 
+.XO-Cell {
+    display: inline-flex;
+    padding: 0.75rem 1.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    border: none;
+    background-color: white;
+    color: var(--purple);
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
 button{
   display: inline-flex;
   padding: 0.75rem 1.5rem;

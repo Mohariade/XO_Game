@@ -3,6 +3,8 @@
 @{
 }
 
+@using Business_Logic_Layer
+
 <div class="main-container">
                  <div id="xo-matrix">
 
@@ -16,49 +18,95 @@
                             <p>@TempData["Result"]</p>
                         }
                     </div>
- *@
+                    *@
 
-                    <div class="cell h-container" asp-action="OnGetRefreach">
-                        <a asp-action="OnGetRefreach">hi</a>
-                    </div>
+                    <form method="post" class="cell h-container">
+
+                            <button type="submit" asp-page-handler="Test00" class="XO-Cell" style="width:100%;height:100%;">
+                                @clsGame.XO_Matrix[0][0]
+                            </button>
                         
-                    <div class="cell h-container">
-                        <a asp-page-handler="Refreach"></a>
-                    </div>
+                    </form>
 
-                    <div class="cell h-container">
-                        <a asp-page-handler="Refreach"></a>
-                    </div>
+                    <form method="post" class="cell h-container">
 
-                    <div class="cell h-container">
-                        <a asp-page-handler="Refreach"></a>
-                    </div>
+                        <button type="submit" asp-page-handler="Test01" class="XO-Cell" style="width:100%;height:100%;">
+                            @clsGame.XO_Matrix[0][1]
+                        </button>
 
-                    <div class="cell h-container">
-                        <a asp-page-handler="Refreach"></a>
-                    </div>
+                    </form>
 
-                    <div class="cell h-container">
-                        <a asp-page-handler="Refreach"></a>
-                    </div>
 
-                    <div class="cell h-container">
-                        <a asp-page-handler="Refreach"></a>
-                    </div>
+                    <form method="post" class="cell h-container">
 
-                    <div class="cell h-container">
-                        <a asp-page-handler="Refreach"></a>
-                    </div>
+                        <button type="submit" asp-page-handler="Test02" class="XO-Cell" style="width:100%;height:100%;">
+                            @clsGame.XO_Matrix[0][2]
+                        </button>
 
-                    <div class="cell h-container">
-                        <a asp-page-handler="Refreach"></a>
-                    </div>
-                    
+                    </form>
+
+
+
+                    <form method="post" class="cell h-container">
+
+                        <button type="submit" asp-page-handler="Test10" class="XO-Cell" style="width:100%;height:100%;">
+                            @clsGame.XO_Matrix[1][0]
+                        </button>
+
+                    </form>
+
+                    <form method="post" class="cell h-container">
+
+                        <button type="submit" asp-page-handler="Test11" class="XO-Cell" style="width:100%;height:100%;">
+                            @clsGame.XO_Matrix[1][1]
+                        </button>
+
+                    </form>
+
+
+                    <form method="post" class="cell h-container">
+
+                        <button type="submit" asp-page-handler="Test12" class="XO-Cell" style="width:100%;height:100%;">
+                            @clsGame.XO_Matrix[1][2]
+                        </button>
+
+                    </form>
+
+
+                    <form method="post" class="cell h-container">
+
+                            <button type="submit" asp-page-handler="Test20" class="XO-Cell" style="width:100%;height:100%;">
+                                @clsGame.XO_Matrix[2][0]
+                            </button>
+                        
+                    </form>
+
+                    <form method="post" class="cell h-container">
+
+                        <button type="submit" asp-page-handler="Test21" class="XO-Cell" style="width:100%;height:100%;">
+                            @clsGame.XO_Matrix[2][1]
+                        </button>
+
+                    </form>
+
+
+                    <form method="post" class="cell h-container">
+
+                        <button type="submit" asp-page-handler="Test22" class="XO-Cell" style="width:100%;height:100%;">
+                            @clsGame.XO_Matrix[2][2]
+                        </button>
+
+                    </form>
+
+
+
+
+
+          
                 </div>
 
                 <div class="profile-card">
                     <img src="assets/icons/user-icon.png" alt="" class="profile-ixon">
-        
                     <a href="" class="user-name">openant-name</a>
                 </div>
                 
