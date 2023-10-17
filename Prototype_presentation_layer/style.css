@@ -27,7 +27,7 @@ body{
 }
 
 h1{
-    color: #8338EC;
+    color: black;
 
     /* Big Title */
     font-size: 3rem;
@@ -151,6 +151,11 @@ button:active{
     
 }
 
+.cell h1{
+    color: black;
+    opacity: 0.8;
+}
+
 .profile-card{
     display: flex;
     width: 18rem;
@@ -222,6 +227,10 @@ button:active{
     border: white solid 6px;
     border-radius: 4rem;
 
+}
+
+#profile h1{
+    color: white;
 }
 
 #LOGO{
