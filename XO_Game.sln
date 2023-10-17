@@ -5,11 +5,11 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation_Layer_Web_App", "Presentation_Layer_Web_App\Presentation_Layer_Web_App.csproj", "{7BFFB108-45D0-4A30-908A-C07C8D251C9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data_Access_Layer", "Data_Access_Layer\Data_Access_Layer.csproj", "{6457B476-63E4-4E49-88EC-2BD73158022E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data_Access_Layer", "Data_Access_Layer\Data_Access_Layer.csproj", "{6457B476-63E4-4E49-88EC-2BD73158022E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business_Logic_Layer", "Business_Logic_Layer\Business_Logic_Layer.csproj", "{18310F5A-A5CB-4EEA-A6CD-07C993E2DBAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business_Logic_Layer", "Business_Logic_Layer\Business_Logic_Layer.csproj", "{18310F5A-A5CB-4EEA-A6CD-07C993E2DBAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{11A62200-FA8E-4F6E-838A-3A131CB96408}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "Testing\Testing.csproj", "{11A62200-FA8E-4F6E-838A-3A131CB96408}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
