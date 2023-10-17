@@ -5,41 +5,53 @@
 
 <div class="main-container">
                  <div id="xo-matrix">
-                    
-                    <div class="cell h-container">
 
+                @*     <div id="myDiv" style="cursor: pointer; padding: 20px; background-color: lightblue;">
+                        <a asp-page-handler="YourAction" class="click-me">Click me!</a>
+                    </div>
+
+                    <div id="resultContainer">
+                        @if (TempData["Result"] != null)
+                        {
+                            <p>@TempData["Result"]</p>
+                        }
+                    </div>
+ *@
+
+                    <div class="cell h-container" asp-action="OnGetRefreach">
+                        <a asp-action="OnGetRefreach">hi</a>
+                    </div>
+                        
+                    <div class="cell h-container">
+                        <a asp-page-handler="Refreach"></a>
                     </div>
 
                     <div class="cell h-container">
-
+                        <a asp-page-handler="Refreach"></a>
                     </div>
 
                     <div class="cell h-container">
-
+                        <a asp-page-handler="Refreach"></a>
                     </div>
 
                     <div class="cell h-container">
-
+                        <a asp-page-handler="Refreach"></a>
                     </div>
 
                     <div class="cell h-container">
-
+                        <a asp-page-handler="Refreach"></a>
                     </div>
 
                     <div class="cell h-container">
-
+                        <a asp-page-handler="Refreach"></a>
                     </div>
 
                     <div class="cell h-container">
-
+                        <a asp-page-handler="Refreach"></a>
                     </div>
 
                     <div class="cell h-container">
-
-                    </div>
-
-                    <div class="cell h-container">
-
+                        <a asp-page-handler="Refreach"></a>
                     </div>
                     
                 </div>
@@ -47,7 +59,7 @@
                 <div class="profile-card">
                     <img src="assets/icons/user-icon.png" alt="" class="profile-ixon">
         
-                    <a href="" class="user-name">@openant-name</a>
+                    <a href="" class="user-name">openant-name</a>
                 </div>
                 
 </div>

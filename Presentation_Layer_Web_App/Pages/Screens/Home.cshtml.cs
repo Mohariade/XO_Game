@@ -8,5 +8,10 @@ namespace Presentation_Layer_Web_App.Pages.Screens
         public void OnGet()
         {
         }
+
+        public IActionResult OnGetRefreach()
+        {
+            return Page();
+        }
     }
 }
