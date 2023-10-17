@@ -1,4 +1,5 @@
 ﻿
+using Business_Logic_Layer;
 using Data_Access_Layer;
 using System.Data;
 using System.Data.SqlClient;
@@ -88,9 +89,19 @@ void Testing_Get_Player()
     }
 }
 
+void Testing_clsPlayer_Find()
+{
+    clsPlayer player = clsPlayer.Find("Player1", "1111");
+
+    Console.WriteLine($"Player ID : {player.ID}     #|#  Name : {player.Name}  #|#    password : {player.Password}");
+
+}
+
 int Main()
 {
-    Testing_Get_Player();
+
+    Testing_clsPlayer_Find();
+    //Testing_Get_Player();
     //TestingConnection();
     //Testing_Get_Players_List();
     //Testing_Get_Games_List();
