@@ -39,10 +39,30 @@ namespace Business_Logic_Layer
         {
             return clsDataAccess.Update_Player(this.ID, this.Name, this.Password);
         }
-        static public clsPlayer Find(string Player_Name,string Password)
+
+        public static bool Delete(ref clsPlayer? player)
+        {
+            if(player == null) return false;
+
+            bool deleted = clsDataAccess.Delete_Player(player.ID);
+
+            if (deleted)
+            {
+                player = null;
+                return true;
+            }
+
+            return false;
+        }
+        static public clsPlayer? Find(string Player_Name,string Password)
         {
             
-            clsPlayer player = clsPlayer.Find(Player_Name);
+            clsPlayer? player = clsPlayer.Find(Player_Name);
+
+            if(player == null)
+            {
+                return null;
+            }
 
             if(player.Password == Password)
             {
@@ -53,10 +73,10 @@ namespace Business_Logic_Layer
                 return null;
             }
         }
-        static private clsPlayer Find(string Player_Name)
+        static private clsPlayer? Find(string Player_Name)
         {
             DataTable tmp_table = new DataTable();
-            clsPlayer player = null;
+            clsPlayer? player = null;
 
             if (clsDataAccess.Get_Player(Player_Name, ref tmp_table))
             {

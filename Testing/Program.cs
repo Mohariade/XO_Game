@@ -99,7 +99,6 @@ void Testing_clsPlayer_Find()
 
 }
 
-
 void Testing_clsPlayer_Create()
 {
     clsPlayer? player = clsPlayer.Create("Mohamed", "Moha");
@@ -142,9 +141,37 @@ void Testing_clsPerson_Update()
     Testing_Get_Players_List();
 }
 
+
+void Testing_clsPerson_Delete()
+{
+    clsPlayer? player = clsPlayer.Find("Player2","2222");
+
+    if(player == null)
+    {
+        Console.WriteLine("Player Not found\n\n");
+        return;
+    }
+
+    Testing_Get_Players_List();
+
+
+    if (clsPlayer.Delete(ref player))
+    {
+        Console.WriteLine("deleted Successfuly\n\n");
+    }
+    else
+    {
+        Console.WriteLine("Failed to delete player\n\n");
+    }
+
+    Testing_Get_Players_List();
+}
+
+
 int Main()
 {
-    Testing_clsPerson_Update();
+    Testing_Get_Players_List();
+    Testing_clsPerson_Delete();
     //Testing_Get_Players_List();
     //Testing_clsPlayer_Create();
     //Testing_clsPlayer_Find();

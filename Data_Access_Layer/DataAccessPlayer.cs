@@ -42,7 +42,7 @@ namespace Data_Access_Layer
             }
             catch (Exception ex)
             {
-
+                isAdded = false;
             }
             finally
             {
@@ -230,6 +230,39 @@ namespace Data_Access_Layer
         #endregion
 
         #region Delete
+
+        public static bool Delete_Player(int ID)
+        {
+            bool isDeleted = true;
+
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = "Delete FROM Players WHERE Player_ID = @Player_ID";
+
+            SqlCommand command = new SqlCommand(query,connection);
+            command.Parameters.AddWithValue("@Player_ID", ID);
+
+            try
+            {
+                connection.Open();
+                int row_affected = command.ExecuteNonQuery();
+
+                if(row_affected != 1)
+                {
+                    isDeleted = false;
+                }
+            }
+            catch(Exception ex)
+            {
+                isDeleted = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return isDeleted;
+        }
 
         #endregion
     }
