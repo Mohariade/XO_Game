@@ -52,12 +52,13 @@ void Testing_Get_Games_List()
 {
     DataTable table = new DataTable();
 
-    if (clsDataAccess.Get_Game_List(ref table)) 
+    if (clsDataAccess.Get_Game_List(ref table))
     {
-        foreach(DataRow row in table.Rows) 
+        foreach (DataRow row in table.Rows)
         {
-            Console.WriteLine($"Game ID : {row["Game_ID"]} | Game Status : {row["Status"]} | Winner Name : {row["Winner_Name"]}");
-        }
+            clsGame game = new clsGame(row);
+            Console.WriteLine($"Game Info :\nGame ID : {game.GameID} | Game Status : {game.StatusID} | PLayer 1 : {game.Player1ID} | Player 2 : {game.Player2ID} | Start Time : {game.StartTime}        ");
+        }    
     }
 }
 
@@ -167,11 +168,59 @@ void Testing_clsPerson_Delete()
     Testing_Get_Players_List();
 }
 
+void Testing_Game_Join_Create()
+{
+    clsPlayer? player = clsPlayer.Find("Ibrahime", "1234");
 
+    if(player == null)
+    {
+        Console.WriteLine("Player not found");
+        return;
+    }
+
+    clsGame? game = clsGame.JoinGame(player.ID);
+
+    if(game == null)
+    {
+        Console.WriteLine("Falied to join game");
+        return;
+    }
+
+
+    Console.WriteLine($"Game Info :\nGame ID : {game.GameID} | Game Status : {game.StatusID} | PLayer 1 : {game.Player1ID} | Player 2 : {game.Player2ID} | Start Time : {game.StartTime}\n\n");
+
+}
+
+void Testing_IS_Player_In_Game()
+{
+    clsPlayer? player = clsPlayer.Find("Ibrahime", "1234");
+
+    if (player == null)
+    {
+        Console.WriteLine("Player not found");
+        return;
+    }
+
+    if (clsDataAccess.Is_Player_In_Game(player.ID))
+    {
+        Console.WriteLine("In game");
+    }
+    else
+    {
+        Console.WriteLine("Not in game");
+    }
+
+}
 int Main()
 {
-    Testing_Get_Players_List();
-    Testing_clsPerson_Delete();
+
+    //Testing_IS_Player_In_Game();
+    //Testing_Get_Games_List();
+
+
+    Testing_Game_Join_Create();
+    //Testing_Get_Players_List();
+    // Testing_clsPerson_Delete();
     //Testing_Get_Players_List();
     //Testing_clsPlayer_Create();
     //Testing_clsPlayer_Find();

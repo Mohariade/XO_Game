@@ -19,9 +19,15 @@ namespace Business_Logic_Layer
 
         public static clsGame? JoinGame(int Player_ID)
         {
+
+            if (clsDataAccess.Is_Player_In_Game(Player_ID))
+            {
+                return null;
+            }
+
             DataTable? GameData = clsDataAccess.Get_Playable_Game();
 
-            if(GameData != null)
+            if (GameData != null)
             {
                 clsGame Game = new clsGame(GameData.Rows[0]);
                 if (clsDataAccess.JoinPlayerToGame(Game.GameID, Player_ID))
@@ -34,8 +40,10 @@ namespace Business_Logic_Layer
             }
             else
             {
-                // TODO (HOUDAIFA) Create New Game
-                s
+                clsGame Game = new clsGame(clsDataAccess.Create_New_Game(Player_ID));
+
+                return Game;
+
             }
 
         }
@@ -43,27 +51,44 @@ namespace Business_Logic_Layer
         public int GameID { get; set; }
         public int Player1ID { get; set; }
         public int? Player2ID { get; set; }
-        public int WinnerID { get; set; }
+        public int? WinnerID { get; set; }
         public int StatusID { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime? EndTime { get; set; } 
-        public clsGame(DataRow row)
-        {
-            GameID = Convert.ToInt32(row["Game_ID"]);
-            Player1ID = Convert.ToInt32(row["Player1_ID"]);
-            Player2ID = Convert.ToInt32(row["Player2_ID"]);
-            WinnerID = Convert.ToInt32(row["Winner_ID"]);
-            StatusID = Convert.ToInt32(row["Status_ID"]);
-            StartTime = Convert.ToDateTime(row["Start_Time"]);
+        public DateTime? EndTime { get; set; }
 
-            // Check if End_Time is DBNull before converting to DateTime
-            if (row["End_Time"] != DBNull.Value)
+        public static int? Convert_To_Int_OR_Null(object? value)
+        {
+            if (value == DBNull.Value)
             {
-                EndTime = Convert.ToDateTime(row["End_Time"]);
+                return null;
             }
             else
             {
-                EndTime = null; // Set to null if DBNull
+                return Convert.ToInt32(value);
+            }
+        }
+        public clsGame(DataRow row)
+        {
+            if (row != null)
+            {
+
+                GameID = Convert.ToInt32(row["Game_ID"]);
+                Player1ID = Convert.ToInt32(row["Player1_ID"]);
+                Player2ID = Convert_To_Int_OR_Null(row["Player2_ID"]);
+                WinnerID = Convert_To_Int_OR_Null(row["Winner_ID"]);
+                StatusID = Convert.ToInt32(row["Status_ID"]);
+                StartTime = Convert.ToDateTime(row["Start_Time"]);
+
+                // Check if End_Time is DBNull before converting to DateTime
+                if (row["End_Time"] != DBNull.Value)
+                {
+                    EndTime = Convert.ToDateTime(row["End_Time"]);
+                }
+                else
+                {
+                    EndTime = null; // Set to null if DBNull
+                }
+
             }
         }
     }
