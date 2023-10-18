@@ -31,10 +31,6 @@ namespace Presentation_Layer_Web_App.Pages.Screens
             return clsGame.XO_Matrix[row][colm];
         }
 
-        public IActionResult OnPostAAA()
-        {
-            return RedirectToPage();
-        }
         public IActionResult OnPostTest00()
         {
             Set_Cell(0, 0, 'X');
