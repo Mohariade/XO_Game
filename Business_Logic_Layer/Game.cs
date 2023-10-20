@@ -73,6 +73,7 @@ namespace Business_Logic_Layer
                 if (clsDataAccess.JoinPlayerToGame(Game.ID, Player_ID))
                 {
                     Game.Player2ID = Player_ID;
+                    Game.StatusID = (int)enStatus.OnGoing;
                     return Game;
                 }
 
@@ -81,7 +82,6 @@ namespace Business_Logic_Layer
             else
             {
                 clsGame Game = new clsGame(clsDataAccess.Create_New_Game(Player_ID));
-
                 return Game;
 
             }
@@ -252,18 +252,25 @@ namespace Business_Logic_Layer
         }
 
         
-        public int ID { get; set; }
-        public int Player1ID { get; set; }
-        public int? Player2ID { get; set; }
-        public int? WinnerID { get; set; }
-        public int StatusID { get; set; }
-        public int? PlayerTurn_ID { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime? EndTime { get; set; }
-        public char[,] Board { get; set; } = { { '#', '#', '#' }, { '#', '#', '#' }, { '#', '#', '#' } };
+        public int ID { get; private set; }
+        public int Player1ID { get; private set; }
+        public int? Player2ID { get; private set; }
+        public int? WinnerID { get;private set; }
+        public int StatusID { get; private set; }
+        public int? PlayerTurn_ID { get;private set; }
+        public DateTime StartTime { get;private set; }
+        public DateTime? EndTime { get;private set; }
+        public char[,] Board { get; private set; } = { { '#', '#', '#' }, { '#', '#', '#' }, { '#', '#', '#' } };
 
         //
 
+        public bool OnGoing
+        {
+            get
+            {
+                return (enStatus)this.StatusID == enStatus.OnGoing;
+            }
+        }
         public bool Running
         {
             get 

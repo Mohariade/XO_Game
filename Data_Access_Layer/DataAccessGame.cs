@@ -189,7 +189,7 @@ namespace Data_Access_Layer
 
         public static bool JoinPlayerToGame(int Game_ID,int Player_ID)
         {
-            string query = "UPDATE Games SET Player2_ID = @Player2_ID WHERE Game_ID = @Game_ID";
+            string query = "UPDATE Games SET Player2_ID = @Player2_ID,Status_ID = 1 WHERE Game_ID = @Game_ID";
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 

@@ -3,6 +3,7 @@ using Business_Logic_Layer;
 using Data_Access_Layer;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 void TestingConnection()
@@ -351,6 +352,143 @@ void Testing_Game_Play()
 
 }
 
+void Testing_Game_Play_Defferent_Screens()
+{
+
+    // Login
+   
+
+    clsPlayer player = Login();
+
+    Console.WriteLine("Welcome " + player.Name + " :)\n\n");
+
+    // Join Game
+
+    Console.WriteLine("Finding Game For you , Please Wait ...");
+
+    clsGame? Game = clsGame.JoinGame(player.ID);
+
+    if(Game == null)
+    {
+        Console.WriteLine("Failed To Join Game, retry later");
+        return;
+    }
+
+    while (!Game.OnGoing)
+    {
+        Thread.Sleep(200);
+        Game.Refreach();
+    }
+
+    // Start
+
+    Console.WriteLine("\n\nGame Found Successfuly\n\n");
+
+    Play_Game();
+
+    if (Game.WinnerID == player.ID)
+    {
+        Console.WriteLine("\n\nYou Are The Winner :)\n\n");
+        Console.WriteLine("Result : Win\n\n");
+
+    }
+    else
+    {
+        Console.WriteLine("\n\nBetter Luck next time :(\n\n");
+
+        if (Game.StatusID == 3)
+        {
+            Console.WriteLine("Result : Draw\n\n");
+        }
+        else 
+        {
+            Console.WriteLine("Result : Lose\n\n");
+        }
+    }
+
+
+    Console.ReadLine();
+
+    //
+
+    void Play_Game()
+    {
+        while (Game.Running)
+        {
+            Console.Clear();
+            Print(Game);
+
+            while (Game.PlayerTurn_ID != player.ID)
+            {
+                Thread.Sleep(200);
+                Console.Clear();
+                Print(Game);
+                Console.WriteLine("Waiting For your turn ...");
+                Game.Refreach();
+
+                if (!Game.Running)
+                {
+                    return;
+                }
+            }
+
+            Console.Clear();
+            Print(Game);
+
+            int row, colm;
+
+            Console.Write("Enter Row  >> ");
+            row = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter Colm >> ");
+            colm = Convert.ToInt32(Console.ReadLine());
+
+            while(!Game.Play(player.ID, row, colm))
+            {
+                Console.Clear();
+                Print(Game);
+                Console.WriteLine("\nThe index is alreay used, choose other one !!!\n");
+                Console.Write("Enter Row  >> ");
+                row = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Enter Colm >> ");
+                colm = Convert.ToInt32(Console.ReadLine());
+            }
+
+        }
+
+
+    }
+
+
+
+    clsPlayer Login()
+    {
+        clsPlayer? player = null;
+
+        while (player == null)
+        {
+
+            string? Name = null;
+            string? Password = null;
+
+            while (Name == null)
+            {
+                Console.Write("Enter Name >> ");
+                Name = Console.ReadLine();
+            }
+
+            while (Password == null)
+            {
+                Console.Write("Enter Password >> ");
+                Password = Console.ReadLine();
+            }
+
+            player = clsPlayer.Find(Name, Password);
+
+        }
+
+        return player;
+    }
+}
 void Print(clsGame game)
 {
 
@@ -372,7 +510,7 @@ void Print(clsGame game)
 
 int Main()
 {
-    Testing_Game_Play();
+    Testing_Game_Play_Defferent_Screens();
     //Print(clsGame.Find(1));
     //Testing_Game_Play();
     //Testing_IS_Player_In_Game();
