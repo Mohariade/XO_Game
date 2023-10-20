@@ -46,3 +46,11 @@ LEFT JOIN Game_Statuses Status ON Games.Status_ID  = Status .Status_ID
 -- Add Password column to the existing Players table
 ALTER TABLE Players
 ADD Password NVARCHAR(255);
+
+-- Add CurrentPlayerTurn_ID column to the existing Games table
+ALTER TABLE Games
+ADD CurrentPlayerTurn_ID INT FOREIGN KEY REFERENCES Players(Player_ID);
+
+
+ALTER TABLE Games
+ADD CONSTRAINT DF_Board DEFAULT '/////////' FOR Board;

@@ -54,6 +54,95 @@ namespace Data_Access_Layer
 
         }
 
+        public static bool Get_Game(ref DataTable table,int Game_ID)
+        {
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = "SELECT * FROM GameInfo WHERE Game_ID = @Game_ID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Game_ID", Game_ID);
+
+            bool Result = true;
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader != null)
+                {
+                    if (reader.HasRows)
+                    {
+                        table.Load(reader);
+                    }
+
+                    reader.Close();
+                }
+                else
+                {
+                    Result = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Result = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return Result;
+
+        }
+
+        public static bool Update_Game(DataTable GameData)
+        {
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = "UPDATE Games SET     Player1_ID =@Player1_ID,     Player2_ID =@Player2_ID,     Winner_ID  =@Winner_ID ,     Status_ID  =@Status_ID ,     Start_Time =@Start_Time,     End_Time   =@End_Time  ,     Board  =  @Board, CurrentPlayerTurn_ID = @CurrentPlayerTurn_ID WHERE Game_ID = @Game_ID; ";
+            
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Game_ID", GameData.Rows[0]["Game_ID"]);
+            command.Parameters.AddWithValue("@Player1_ID", GameData.Rows[0]["Player1_ID"]);
+            command.Parameters.AddWithValue("@Player2_ID", GameData.Rows[0]["Player2_ID"]);
+            command.Parameters.AddWithValue("@Winner_ID", GameData.Rows[0]["Winner_ID"]);
+            command.Parameters.AddWithValue("@Status_ID", GameData.Rows[0]["Status_ID"]);
+            command.Parameters.AddWithValue("@Start_Time", GameData.Rows[0]["Start_Time"]);
+            command.Parameters.AddWithValue("@End_Time", GameData.Rows[0]["End_Time"]);
+            command.Parameters.AddWithValue("@Board", GameData.Rows[0]["Board"]);
+            command.Parameters.AddWithValue("@CurrentPlayerTurn_ID", GameData.Rows[0]["CurrentPlayerTurn_ID"]);
+
+            bool Result = true;
+
+            try
+            {
+                connection.Open();
+
+                int AffectedRows = command.ExecuteNonQuery();
+
+                if(AffectedRows != 1)
+                {
+                    Result = false;
+                }
+                                
+            }
+            catch (Exception ex)
+            {
+                Result = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return Result;
+
+        }
+
+
         public static DataTable? Get_Playable_Game()
         {
             DataTable? table = new DataTable();
@@ -142,7 +231,7 @@ namespace Data_Access_Layer
         {
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = " INSERT INTO Games (Player1_ID, Player2_ID, Winner_ID, Status_ID, Start_Time, End_Time) VALUES (@Player1_ID, null, null, 7, GETDATE(), null);  SELECT SCOPE_IDENTITY() as Game_ID;";
+            string query = " INSERT INTO Games (Player1_ID, Player2_ID, Winner_ID, Status_ID, CurrentPlayerTurn_ID, Start_Time, End_Time) VALUES (@Player1_ID, null, null, 7,@Player1_ID, GETDATE(), null);  SELECT SCOPE_IDENTITY() as Game_ID;";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@Player1_ID", Player1_ID);
@@ -254,6 +343,41 @@ namespace Data_Access_Layer
             }
 
             return isPlaying;
+        }
+
+        public static bool End(int Game_ID,int Status_ID,int Winner_ID)
+        {
+
+            bool result = true;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = "UPDATE Games  SET Winner_ID = @Winner_ID, Status_ID = @Status_ID, End_Time = GETDATE() WHERE Game_ID = @Game_ID;";
+
+            SqlCommand command = new SqlCommand(query,connection);
+            command.Parameters.AddWithValue("@Winner_ID", Winner_ID);
+            command.Parameters.AddWithValue("@Status_ID", Status_ID);
+            command.Parameters.AddWithValue("@Game_ID", Game_ID);
+
+            try
+            {
+                connection.Open();
+                int AffectedRows = command.ExecuteNonQuery();
+
+                if(AffectedRows != 1)
+                {
+                    result = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return result;
         }
     }
 }

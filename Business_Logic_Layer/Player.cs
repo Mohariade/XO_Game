@@ -73,6 +73,13 @@ namespace Business_Logic_Layer
                 return null;
             }
         }
+
+        public bool IsPlaying { 
+            get
+            {
+                return clsDataAccess.Is_Player_In_Game(this.ID);
+            } 
+        }
         static private clsPlayer? Find(string Player_Name)
         {
             DataTable tmp_table = new DataTable();
