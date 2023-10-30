@@ -8,8 +8,10 @@ app.MapGet("/Games", () => clsGame.ListAsJSON());
 
 app.MapGet("/Games/{Id}", (int Id) => clsGame.FindAsJson(Id));
 
+app.MapGet("/Games/Join/{Player_Id}",(int Player_id)=>clsGame.JoinGameAsJson(Player_id));
+
 app.MapGet("/Players", () => clsPlayer.ListAsJson());
 
-app.MapGet("/Players/{Name,Password}", (string Name,string Password) => clsPlayer.FindAsJson(Name,Password));
+app.MapGet("/Players/{Name}/{Password}", (string Name,string Password) => clsPlayer.FindAsJson(Name,Password));
 
 app.Run();

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
@@ -90,6 +91,17 @@ namespace Business_Logic_Layer
             }
         }
 
+        public static string JoinGameAsJson(int Player_Id)
+        {
+            clsGame? game = clsGame.JoinGame(Player_Id);
+
+            if(game == null)
+            {
+                return JsonConvert.NaN;
+            }
+
+            return JsonConvert.SerializeObject(game);
+        }
         public static clsGame? JoinGame(int Player_ID)
         {
 

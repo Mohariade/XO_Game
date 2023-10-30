@@ -13,7 +13,7 @@ namespace Business_Logic_Layer
     {
         public int ID { get; private set; }
         public string Name {  get; set; }
-        public string Password { get; set; }    
+        private string Password { get; set; }    
 
         static public List<clsPlayer> List()
         {
