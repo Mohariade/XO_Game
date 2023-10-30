@@ -1,4 +1,5 @@
 ﻿using Data_Access_Layer;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,7 +14,28 @@ namespace Business_Logic_Layer
     public class clsGame
     {
 
-       
+        public static List<clsGame> List()
+        {
+            List<clsGame> games = new List<clsGame>();
+
+            DataTable dt = new DataTable(); 
+            clsDataAccess.Get_Game_List(ref dt);
+
+            foreach(DataRow row in dt.Rows)
+            {
+                games.Add(new clsGame(row));
+            }
+
+            return games;
+        }
+
+        public static string ListAsJSON()
+        {
+            List<clsGame> games = List();
+
+            return JsonConvert.SerializeObject(games);
+        }
+        
         public void Refreach()
         {
             clsGame? game = clsGame.Find(this.ID);
@@ -42,6 +64,17 @@ namespace Business_Logic_Layer
             this.PlayerTurn_ID = SourceGame.PlayerTurn_ID;
         }
 
+        static public string FindAsJson(int Id)
+        {
+            clsGame? game = clsGame.Find(Id);
+
+            if(game == null)
+            {
+                return JsonConvert.NaN;
+            }
+            
+            return JsonConvert.SerializeObject(game);
+        }
         static public clsGame? Find(int ID)
         {
             DataTable? table =new DataTable();

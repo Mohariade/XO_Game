@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using Data_Access_Layer;
+using Newtonsoft.Json;
 
 namespace Business_Logic_Layer
 {
@@ -13,6 +14,26 @@ namespace Business_Logic_Layer
         public int ID { get; private set; }
         public string Name {  get; set; }
         public string Password { get; set; }    
+
+        static public List<clsPlayer> List()
+        {
+            List<clsPlayer> players = new List<clsPlayer>();
+
+            DataTable dt = new DataTable();
+            clsDataAccess.Get_Players_List(ref dt);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                players.Add(new clsPlayer(row));
+            }
+
+            return players;
+        }
+
+        static public string ListAsJson()
+        {
+            return JsonConvert.SerializeObject(clsPlayer.List());
+        }
 
         /// <summary>
         /// Create New Player in the data base and return the new player's ID
@@ -79,6 +100,18 @@ namespace Business_Logic_Layer
             {
                 return clsDataAccess.Is_Player_In_Game(this.ID);
             } 
+        }
+
+        static public string FindAsJson(string Player_Name,string Password)
+        {
+            clsPlayer player = clsPlayer.Find(Player_Name,Password);
+
+            if(player == null)
+            {
+                return JsonConvert.NaN;
+            }
+
+            return JsonConvert.SerializeObject(player);
         }
         static private clsPlayer? Find(string Player_Name)
         {

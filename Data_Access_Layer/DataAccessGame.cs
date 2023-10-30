@@ -77,7 +77,10 @@ namespace Data_Access_Layer
                     {
                         table.Load(reader);
                     }
-
+                    else
+                    {
+                        Result = false;
+                    }
                     reader.Close();
                 }
                 else

@@ -356,8 +356,8 @@ void Testing_Game_Play_Defferent_Screens()
 {
 
     // Login
-   
 
+    
     clsPlayer player = Login();
 
     Console.WriteLine("Welcome " + player.Name + " :)\n\n");
